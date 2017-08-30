@@ -1,0 +1,40 @@
+{
+  "name": "r2",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "commit": "git-cz",
+    "test": "tap test/test-*.js --100",
+    "posttest": "standard",
+    "coverage": "tap test/test-*.js --coverage-report=lcov",
+    "postcoverage": "codecov",
+    "precommit": "npm test",
+    "prepush": "npm test",
+    "commitmsg": "validate-commit-msg"
+  },
+  "keywords": [],
+  "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (http://www.mikealrogers.com)",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "node-fetch": "^2.0.0-alpha.8",
+    "typedarray-to-buffer": "^3.1.2"
+  },
+  "devDependencies": {
+    "blob-to-buffer": "^1.2.6",
+    "body": "^5.1.0",
+    "codecov": "^2.3.0",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.0.0",
+    "fake-indexeddb": "^2.0.3",
+    "husky": "^0.14.3",
+    "lucass": "^4.1.0",
+    "semantic-release": "^7.0.2",
+    "standard": "^10.0.3",
+    "tap": "^10.7.2",
+    "validate-commit-msg": "^2.14.0"
+  },
+  "browser": {
+    "node-fetch": false
+  }
+}
