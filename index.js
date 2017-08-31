@@ -50,25 +50,25 @@ class R2 {
 
     let failSet = () => { throw new Error('Cannot set read-only property.') }
     Object.defineProperty(this, 'json', {
-      get: () => this.response.then(resp => resp.json()),
+      get: () => this.response.then(resp => resp.clone().json()),
       set: failSet
     })
     Object.defineProperty(this, 'text', {
-      get: () => this.response.then(resp => resp.text()),
+      get: () => this.response.then(resp => resp.clone().text()),
       set: failSet
     })
     Object.defineProperty(this, 'arrayBuffer', {
-      get: () => this.response.then(resp => resp.arrayBuffer()),
+      get: () => this.response.then(resp => resp.clone().arrayBuffer()),
       set: failSet
     })
     Object.defineProperty(this, 'blob', {
-      get: () => this.response.then(resp => resp.blob()),
+      get: () => this.response.then(resp => resp.clone().blob()),
       set: failSet
     })
     Object.defineProperty(this, 'fromData', {
       /* This isn't implemented in the shim yet */
       get: /* istanbul ignore next */
-        () => this.response.then(resp => resp.formData()),
+        () => this.response.then(resp => resp.clone().formData()),
       set: failSet
     })
 
