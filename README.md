@@ -35,3 +35,7 @@ let headers = {'x-test': 'ok'}
 
 let res = await r2('http://localhost/test', {headers}).response
 ```
+
+Being written to the Fetch API is a huge benefit for browser users.
+
+When running through browserify `request` is ~2M uncompressed and ~500K compressed. `r2` is only 66K uncompressed and 16K compressed.

@@ -24,6 +24,7 @@
   "devDependencies": {
     "blob-to-buffer": "^1.2.6",
     "body": "^5.1.0",
+    "browserify": "^14.4.0",
     "codecov": "^2.3.0",
     "commitizen": "^2.9.6",
     "cz-conventional-changelog": "^2.0.0",
