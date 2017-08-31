@@ -65,7 +65,7 @@ class R2 {
       get: () => this.response.then(resp => resp.blob()),
       set: failSet
     })
-    Object.defineProperty(this, 'fromData', {
+    Object.defineProperty(this, 'formData', {
       /* This isn't implemented in the shim yet */
       get: /* istanbul ignore next */
         () => this.response.then(resp => resp.formData()),
