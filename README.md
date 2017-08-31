@@ -25,7 +25,7 @@ Simple JSON support.
 ```javascript
 let obj = {ok: true}
 
-let resp = await r2.put('http://localhost/test.json', {body: obj}).json
+let resp = await r2.put('http://localhost/test.json', {json: obj}).json
 ```
 
 Simple headers support.
