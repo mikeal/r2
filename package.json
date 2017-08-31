@@ -1,6 +1,6 @@
 {
   "name": "r2",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "postcoverage": "codecov",
     "precommit": "npm test",
     "prepush": "npm test",
-    "commitmsg": "validate-commit-msg"
+    "commitmsg": "validate-commit-msg",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "keywords": [],
   "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (http://www.mikealrogers.com)",
@@ -36,5 +37,9 @@
   },
   "browser": {
     "node-fetch": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikeal/r2.git"
   }
 }
