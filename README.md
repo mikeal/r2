@@ -10,7 +10,7 @@ This new library, `r2`, is a completely new approach from request.
 
 * Rather than being built on top of the Node.js Core HTTP library and
   shimed for the Browser, `r2` is built on top of the browser's
-  Fetch API and shimed for Node.js.
+  Fetch API and shimmed for Node.js.
 * APIs are meant to be used with async await, which means they are
   based on promises.
 
