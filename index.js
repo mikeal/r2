@@ -50,34 +50,44 @@ class R2 {
 
     let failSet = () => { throw new Error('Cannot set read-only property.') }
     Object.defineProperty(this, 'json', {
-      get: () => this.response.then(resp => resp.clone().json()),
+      get: () => this.response.then(resp => resp.json()),
       set: failSet
     })
     Object.defineProperty(this, 'text', {
-      get: () => this.response.then(resp => resp.clone().text()),
+      get: () => this.response.then(resp => resp.text()),
       set: failSet
     })
     Object.defineProperty(this, 'arrayBuffer', {
-      get: () => this.response.then(resp => resp.clone().arrayBuffer()),
+      get: () => this.response.then(resp => resp.arrayBuffer()),
       set: failSet
     })
     Object.defineProperty(this, 'blob', {
-      get: () => this.response.then(resp => resp.clone().blob()),
+      get: () => this.response.then(resp => resp.blob()),
       set: failSet
     })
-    Object.defineProperty(this, 'formData', {
+    Object.defineProperty(this, 'fromData', {
       /* This isn't implemented in the shim yet */
       get: /* istanbul ignore next */
-        () => this.response.then(resp => resp.clone().formData()),
+        () => this.response.then(resp => resp.formData()),
       set: failSet
     })
 
     this._args(...args)
-
+    this.opts.headers = makeHeaders(this._headers) // follow FP paradigm :: construct headers
+    if (this.opts.body) {                         // construct body
+      this.opts.body = makeBody(this.opts.body)
+    }
     setTimeout(() => {
-      this._request()
+      this._request()                             // make API call
     }, 0)
   }
+  setHeaders (obj) {
+    for (let key in obj) {
+      this._caseless.set(key, obj[key])
+    }
+    return this
+  }
+
   _args (...args) {
     let opts = this.opts
     if (typeof args[0] === 'string') {
@@ -87,6 +97,12 @@ class R2 {
       opts = Object.assign(opts, args.shift())
     }
     if (opts.headers) this.setHeaders(opts.headers)
+
+    if (opts.json) {
+      opts.body = JSON.stringify(opts.json)
+      this.setHeaders({'content-type': 'application/json'})
+      delete opts.json
+    }
     this.opts = opts
   }
   put (...args) {
@@ -123,34 +139,9 @@ class R2 {
     let url = this.opts.url
     delete this.opts.url
 
-    if (this.opts.json) {
-      this.opts.body = JSON.stringify(this.opts.json)
-      this.setHeader('content-type', 'application/json')
-      delete this.opts.json
-    }
-
-    if (this.opts.body) {
-      this.opts.body = makeBody(this.opts.body)
-    }
-
-    // TODO: formData API.
-
-    this.opts.headers = makeHeaders(this._headers)
-
     fetch(url, this.opts)
     .then(resp => this.response.resolve(resp))
     .catch(err => this.response.reject(err))
-  }
-  setHeaders (obj) {
-    for (let key in obj) {
-      this._caseless.set(key, obj[key])
-    }
-    return this
-  }
-  setHeader (key, value) {
-    let o = {}
-    o[key] = value
-    return this.setHeaders(o)
   }
 }
 
