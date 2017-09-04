@@ -68,7 +68,7 @@ class R2 {
     Object.defineProperty(this, 'fromData', {
       /* This isn't implemented in the shim yet */
       get: /* istanbul ignore next */
-        () => this.response.then(resp => resp.formData()),
+        () => this.response.then(resp => resp.clone().formData()),
       set: failSet
     })
 
