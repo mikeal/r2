@@ -1,0 +1,15 @@
+language: node_js
+os:
+  - linux
+  - osx
+node_js:
+# comment node 6 and 7 for now because tests are using 
+# require('util').promisify which is not available in node 6, 7
+#  - '6'
+#  - '7'
+  - '8'
+before_install:
+  - npm config set progress false
+  - npm config set spin false
+script:
+  - npm test
