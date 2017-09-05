@@ -1,7 +1,7 @@
 /* globals fetch, Headers */
 /* istanbul ignore next */
 const fetch = process.browser ? fetch : require('node-fetch')
-const headers = process.browser ? fetch.Headers : Headers
+const Headers = process.browser ? fetch.Headers : Headers
 
 const caseless = require('caseless')
 const toTypedArray = require('typedarray-to-buffer')
