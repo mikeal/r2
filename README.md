@@ -6,7 +6,7 @@ along with Node.js and eventually became very widely depended upon.
 A lot has changed since 2010 and I've decided to re-think what a simple
 HTTP client library should look like.
 
-This new library, `r2`, is a completely new approach from request.
+This new library, `r2`, is a completely new approach from `request`.
 
 * Rather than being built on top of the Node.js Core HTTP library and
   shimmed for the Browser, `r2` is built on top of the browser's
