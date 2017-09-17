@@ -8,13 +8,7 @@ if (!process.browser) {
 const caseless = require('caseless')
 const toTypedArray = require('typedarray-to-buffer')
 
-const makeHeaders = obj => {
-  let h = new Headers()
-  for (let key in obj) {
-    h.append(key, obj[key])
-  }
-  return h
-}
+const makeHeaders = obj => new Headers(obj)
 
 const makeBody = value => {
   // TODO: Streams support.
