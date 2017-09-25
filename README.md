@@ -1,5 +1,11 @@
 # r2
 
+<p>
+  <a href="https://www.patreon.com/bePatron?u=880479">
+    <img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" height="40px" />
+  </a>
+</p>
+
 Early in Node.js I wrote an HTTP client library called `request`. It evolved
 along with Node.js and eventually became very widely depended upon.
 
