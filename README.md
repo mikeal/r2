@@ -45,3 +45,16 @@ let res = await r2('http://localhost/test', {headers}).response
 Being written to the Fetch API is a huge benefit for browser users.
 
 When running through browserify `request` is ~2M uncompressed and ~500K compressed. `r2` is only 66K uncompressed and 16K compressed.
+
+
+## Installation
+
+:warning: An NPM package `r2` exists but does not yet refer to this project (see [#20](https://github.com/mikeal/r2/issues/20)). In the meantime install like this:
+
+```
+# via HTTPS
+npm install git+https://git@github.com:mikeal/r2.git --save
+
+# via SSH
+npm install git+ssh://git@github.com:mikeal/r2.git --save
+```
