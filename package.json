@@ -32,7 +32,7 @@
     "fake-indexeddb": "^2.0.3",
     "husky": "^0.14.3",
     "lucass": "^4.1.0",
-    "semantic-release": "^7.0.2",
+    "semantic-release": "^8.0.3",
     "standard": "^10.0.3",
     "tap": "^10.7.2",
     "validate-commit-msg": "^2.14.0"
