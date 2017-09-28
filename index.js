@@ -67,11 +67,21 @@ class R2 {
     })
 
     this._args(...args)
-
+    this.opts.headers = makeHeaders(this._headers) // follow FP paradigm :: construct headers
+    if (this.opts.body) {                         // construct body
+      this.opts.body = makeBody(this.opts.body)
+    }
     setTimeout(() => {
-      this._request()
+      this._request()                             // make API call
     }, 0)
   }
+  setHeaders (obj) {
+    for (let key in obj) {
+      this._caseless.set(key, obj[key])
+    }
+    return this
+  }
+
   _args (...args) {
     let opts = this.opts
     if (typeof args[0] === 'string') {
@@ -81,6 +91,12 @@ class R2 {
       opts = Object.assign(opts, args.shift())
     }
     if (opts.headers) this.setHeaders(opts.headers)
+
+    if (opts.json) {
+      opts.body = JSON.stringify(opts.json)
+      this.setHeaders({'content-type': 'application/json'})
+      delete opts.json
+    }
     this.opts = opts
   }
   put (...args) {
@@ -117,34 +133,9 @@ class R2 {
     let url = this.opts.url
     delete this.opts.url
 
-    if (this.opts.json) {
-      this.opts.body = JSON.stringify(this.opts.json)
-      this.setHeader('content-type', 'application/json')
-      delete this.opts.json
-    }
-
-    if (this.opts.body) {
-      this.opts.body = makeBody(this.opts.body)
-    }
-
-    // TODO: formData API.
-
-    this.opts.headers = makeHeaders(this._headers)
-
     fetch(url, this.opts)
     .then(resp => this.response.resolve(resp))
     .catch(err => this.response.reject(err))
-  }
-  setHeaders (obj) {
-    for (let key in obj) {
-      this._caseless.set(key, obj[key])
-    }
-    return this
-  }
-  setHeader (key, value) {
-    let o = {}
-    o[key] = value
-    return this.setHeaders(o)
   }
 }
 
