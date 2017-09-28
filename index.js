@@ -1,9 +1,7 @@
 /* globals fetch, Headers */
 /* istanbul ignore next */
-if (!process.browser) {
-  global.fetch = require('node-fetch')
-  global.Headers = global.fetch.Headers
-}
+const fetch = process.browser ? fetch : require('node-fetch')
+const Headers = process.browser ? fetch.Headers : Headers
 
 const caseless = require('caseless')
 const toTypedArray = require('typedarray-to-buffer')
@@ -83,36 +81,6 @@ class R2 {
     if (opts.headers) this.setHeaders(opts.headers)
     this.opts = opts
   }
-  put (...args) {
-    this.opts.method = 'PUT'
-    this._args(...args)
-    return this
-  }
-  get (...args) {
-    this.opts.method = 'GET'
-    this._args(...args)
-    return this
-  }
-  post (...args) {
-    this.opts.method = 'POST'
-    this._args(...args)
-    return this
-  }
-  head (...args) {
-    this.opts.method = 'HEAD'
-    this._args(...args)
-    return this
-  }
-  patch (...args) {
-    this.opts.method = 'PATCH'
-    this._args(...args)
-    return this
-  }
-  delete (...args) {
-    this.opts.method = 'DELETE'
-    this._args(...args)
-    return this
-  }
   _request () {
     let url = this.opts.url
     delete this.opts.url
@@ -149,9 +117,12 @@ class R2 {
 }
 
 module.exports = (...args) => new R2(...args)
-module.exports.put = (...args) => new R2().put(...args)
-module.exports.get = (...args) => new R2().get(...args)
-module.exports.post = (...args) => new R2().post(...args)
-module.exports.head = (...args) => new R2().head(...args)
-module.exports.patch = (...args) => new R2().patch(...args)
-module.exports.delete = (...args) => new R2().delete(...args)
+const methods = ['get', 'put', 'post', 'head', 'patch', 'delete']
+for (const method of methods) {
+  R2.prototype[method] = function(...args) {
+    this.opts.method = method.toUpperCase();
+    this._args(...args)
+    return this
+  }
+  module.exports[method] = (...args) => new R2()[method](...args)
+}
