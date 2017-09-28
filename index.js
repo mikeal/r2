@@ -43,28 +43,18 @@ class R2 {
     this._caseless = caseless(this._headers)
 
     let failSet = () => { throw new Error('Cannot set read-only property.') }
-    Object.defineProperty(this, 'json', {
-      get: () => this.response.then(resp => resp.clone().json()),
-      set: failSet
-    })
-    Object.defineProperty(this, 'text', {
-      get: () => this.response.then(resp => resp.clone().text()),
-      set: failSet
-    })
-    Object.defineProperty(this, 'arrayBuffer', {
-      get: () => this.response.then(resp => resp.clone().arrayBuffer()),
-      set: failSet
-    })
-    Object.defineProperty(this, 'blob', {
-      get: () => this.response.then(resp => resp.clone().blob()),
-      set: failSet
-    })
-    Object.defineProperty(this, 'formData', {
-      /* This isn't implemented in the shim yet */
-      get: /* istanbul ignore next */
-        () => this.response.then(resp => resp.clone().formData()),
-      set: failSet
-    })
+
+    let props = [ 'json', 'text', 'arrayBuffer', 'blob', 'formData' ]
+      .reduce((acc, prop) => {
+        return Object.assign(acc, {
+          [prop]: {
+            get: () => this.response.then(resp => resp.clone()[prop]()),
+            set: failSet
+          }
+        })
+      }, {})
+
+    Object.defineProperties(this, props)
 
     this._args(...args)
 
