@@ -60,6 +60,7 @@ class R2 {
       this._request()
     }, 0)
   }
+
   _args (...args) {
     let opts = this.opts
     if (typeof args[0] === 'string') {
@@ -71,33 +72,9 @@ class R2 {
     if (opts.headers) this.setHeaders(opts.headers)
     this.opts = opts
   }
-  put (...args) {
-    this.opts.method = 'PUT'
-    this._args(...args)
-    return this
-  }
-  get (...args) {
-    this.opts.method = 'GET'
-    this._args(...args)
-    return this
-  }
-  post (...args) {
-    this.opts.method = 'POST'
-    this._args(...args)
-    return this
-  }
-  head (...args) {
-    this.opts.method = 'HEAD'
-    this._args(...args)
-    return this
-  }
-  patch (...args) {
-    this.opts.method = 'PATCH'
-    this._args(...args)
-    return this
-  }
-  delete (...args) {
-    this.opts.method = 'DELETE'
+
+  method (verb, ...args) {
+    this.opts.method = verb.toUpperCase()
     this._args(...args)
     return this
   }
@@ -137,9 +114,9 @@ class R2 {
 }
 
 module.exports = (...args) => new R2(...args)
-module.exports.put = (...args) => new R2().put(...args)
-module.exports.get = (...args) => new R2().get(...args)
-module.exports.post = (...args) => new R2().post(...args)
-module.exports.head = (...args) => new R2().head(...args)
-module.exports.patch = (...args) => new R2().patch(...args)
-module.exports.delete = (...args) => new R2().delete(...args)
+module.exports.put = (...args) => new R2().method('put', ...args)
+module.exports.get = (...args) => new R2().method('get', ...args)
+module.exports.post = (...args) => new R2().method('post', ...args)
+module.exports.head = (...args) => new R2().method('head', ...args)
+module.exports.patch = (...args) => new R2().method('patch', ...args)
+module.exports.delete = (...args) => new R2().method('delete', ...args)
