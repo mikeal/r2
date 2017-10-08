@@ -26,46 +26,34 @@ const makeBody = value => {
 const resolvable = () => {
   let _resolve
   let _reject
-  let p = new Promise((resolve, reject) => {
-    _resolve = resolve
-    _reject = reject
-  })
-  p.resolve = (...args) => _resolve(...args)
-  p.reject = (...args) => _reject(...args)
+  let p = new Promise((resolve, reject) => (
+    [_resolve, _reject] = [resolve, reject])
+  )
+  p.resolve = _resolve
+  p.reject = _reject
   return p
 }
 
 class R2 {
   constructor (...args) {
-    this.opts = {method: 'GET'}
+    this.opts = { method: 'GET' }
     this.response = resolvable()
     this._headers = {}
     this._caseless = caseless(this._headers)
 
-    let failSet = () => { throw new Error('Cannot set read-only property.') }
-    Object.defineProperty(this, 'json', {
-      get: () => this.response.then(resp => resp.clone().json()),
-      set: failSet
-    })
-    Object.defineProperty(this, 'text', {
-      get: () => this.response.then(resp => resp.clone().text()),
-      set: failSet
-    })
-    Object.defineProperty(this, 'arrayBuffer', {
-      get: () => this.response.then(resp => resp.clone().arrayBuffer()),
-      set: failSet
-    })
-    Object.defineProperty(this, 'blob', {
-      get: () => this.response.then(resp => resp.clone().blob()),
-      set: failSet
-    })
-    Object.defineProperty(this, 'formData', {
-      /* This isn't implemented in the shim yet */
-      get: /* istanbul ignore next */
-        () => this.response.then(resp => resp.clone().formData()),
-      set: failSet
-    })
+    let failSet = () => {
+      throw new Error('Cannot set read-only property.')
+    }
+    const resolveResWith = way => resp => resp.clone()[way]()
 
+    /* formData isn't implemented in the shim yet */
+    const ways = ['json', 'text', 'arrayBuffer', 'blob', 'formData']
+    ways.forEach(way =>
+      Object.defineProperty(this, way, {
+        get: () => this.response.then(resolveResWith(way)),
+        set: failSet
+      })
+    )
     this._args(...args)
 
     setTimeout(() => {
@@ -132,8 +120,8 @@ class R2 {
     this.opts.headers = makeHeaders(this._headers)
 
     fetch(url, this.opts)
-    .then(resp => this.response.resolve(resp))
-    .catch(err => this.response.reject(err))
+      .then(resp => this.response.resolve(resp))
+      .catch(err => this.response.reject(err))
   }
   setHeaders (obj) {
     for (let key in obj) {
