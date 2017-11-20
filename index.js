@@ -13,12 +13,12 @@ const makeHeaders = obj => new Headers(obj)
 const makeBody = value => {
   // TODO: Streams support.
   if (typeof value === 'string') {
-    value = Buffer.from(value)
+    return Buffer.from(value)
   }
   /* Can't test Blob types in Node.js */
   /* istanbul ignore else */
   if (Buffer.isBuffer(value)) {
-    value = toTypedArray(value)
+    return toTypedArray(value)
   }
   return value
 }
