@@ -23,21 +23,9 @@ const makeBody = value => {
   return value
 }
 
-const resolvable = () => {
-  let _resolve
-  let _reject
-  let p = new Promise((resolve, reject) => (
-    [_resolve, _reject] = [resolve, reject])
-  )
-  p.resolve = _resolve
-  p.reject = _reject
-  return p
-}
-
 class R2 {
   constructor (...args) {
     this.opts = { method: 'GET' }
-    this.response = resolvable()
     this._headers = {}
     this._caseless = caseless(this._headers)
 
@@ -56,9 +44,7 @@ class R2 {
     )
     this._args(...args)
 
-    setTimeout(() => {
-      this._request()
-    }, 0)
+    this.response = Promise.resolve().then(() => this._request())
   }
 
   _args (...args) {
@@ -96,9 +82,7 @@ class R2 {
 
     this.opts.headers = makeHeaders(this._headers)
 
-    fetch(url, this.opts)
-      .then(resp => this.response.resolve(resp))
-      .catch(err => this.response.reject(err))
+    return fetch(url, this.opts)
   }
   setHeaders (obj) {
     for (let key in obj) {
