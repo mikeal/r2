@@ -7,8 +7,6 @@ notifications:
   email: false
 node_js:
   - '8'
-before_script:
-  - npm prune
 after_success:
   - npm run semantic-release
 # Trigger a push build on master and greenkeeper branches + PRs build on every branches
