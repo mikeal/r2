@@ -44,7 +44,8 @@ class R2 {
     )
     this._args(...args)
 
-    this.response = Promise.resolve().then(() => this._request())
+    this.response =
+      module.exports.Promise.resolve().then(() => this._request())
   }
 
   _args (...args) {
@@ -104,3 +105,4 @@ module.exports.post = (...args) => new R2().method('post', ...args)
 module.exports.head = (...args) => new R2().method('head', ...args)
 module.exports.patch = (...args) => new R2().method('patch', ...args)
 module.exports.delete = (...args) => new R2().method('delete', ...args)
+module.exports.Promise = Promise
