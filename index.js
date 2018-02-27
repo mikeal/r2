@@ -10,7 +10,7 @@ const toTypedArray = require('typedarray-to-buffer')
 
 const makeHeaders = obj => new Headers(obj)
 
-const makeBody = value => {
+function makeBody (value) {
   // TODO: Streams support.
   if (typeof value === 'string') {
     value = Buffer.from(value)
@@ -55,7 +55,7 @@ class R2 {
     if (typeof args[0] === 'object') {
       opts = Object.assign(opts, args.shift())
     }
-    if (opts.headers) this.setHeaders(opts.headers)
+    this.setHeaders(opts.headers)
     this.opts = opts
   }
 
@@ -84,16 +84,14 @@ class R2 {
 
     return fetch(url, this.opts)
   }
-  setHeaders (obj) {
+  setHeaders (obj = {}) {
     for (let key in obj) {
       this._caseless.set(key, obj[key])
     }
     return this
   }
   setHeader (key, value) {
-    let o = {}
-    o[key] = value
-    return this.setHeaders(o)
+    this.setHeaders({ [key]: value })
   }
 }
 
