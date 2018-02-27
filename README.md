@@ -6,6 +6,8 @@
   </a>
 </p>
 
+[![Build Status](https://travis-ci.org/mikeal/r2.svg?branch=master)](https://travis-ci.org/mikeal/r2) [![Coverage Status](https://coveralls.io/repos/github/mikeal/r2/badge.svg?branch=master)](https://coveralls.io/github/mikeal/r2?branch=master)
+
 Early in Node.js I wrote an HTTP client library called `request`. It evolved
 along with Node.js and eventually became very widely depended upon.
 
@@ -45,4 +47,3 @@ let res = await r2('http://localhost/test', {headers}).response
 Being written to the Fetch API is a huge benefit for browser users.
 
 When running through browserify `request` is ~2M uncompressed and ~500K compressed. `r2` is only 66K uncompressed and 16K compressed.
-
