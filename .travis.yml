@@ -3,15 +3,26 @@ cache:
   directories:
     # https://twitter.com/maybekatz/status/905213355748720640
     - ~/.npm
-notifications:
-  email: false
 node_js:
-  - '8'
-after_success:
-  - npm run semantic-release
+  # https://medium.com/@mikeal/stop-supporting-old-releases-70cfa0e04b0c
+  - 'lts/*'
+
 # Trigger a push build on master and greenkeeper branches + PRs build on every branches
 # Avoid double build on PRs (See https://github.com/travis-ci/travis-ci/issues/1147)
 branches:
   only:
     - master
     - /^greenkeeper.*$/
+
+stages:
+  - test
+  - name: release
+    if: branch = master AND type IN (push)
+
+jobs:
+  include:
+    - stage: test
+      script: npm test
+      after_success: npm run coverage
+    - stage: release
+      script: semantic-release
