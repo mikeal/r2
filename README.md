@@ -6,7 +6,7 @@
   </a>
 </p>
 
-[![Build Status](https://travis-ci.org/mikeal/r2.svg?branch=master)](https://travis-ci.org/mikeal/r2) [![Coverage Status](https://coveralls.io/repos/github/mikeal/r2/badge.svg?branch=master)](https://coveralls.io/github/mikeal/r2?branch=master)
+[![Build Status](https://travis-ci.org/mikeal/r2.svg?branch=master)](https://travis-ci.org/mikeal/r2) [![Coverage Status](https://coveralls.io/repos/github/mikeal/r2/badge.svg?branch=master)](https://coveralls.io/github/mikeal/r2?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/mikeal/r2.svg)](https://greenkeeper.io/)
 
 Early in Node.js I wrote an HTTP client library called `request`. It evolved
 along with Node.js and eventually became very widely depended upon.
