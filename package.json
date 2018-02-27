@@ -12,7 +12,7 @@
     "precommit": "npm test",
     "prepush": "npm test",
     "commitmsg": "validate-commit-msg",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "keywords": [],
   "author": "Mikeal Rogers <mikeal.rogers@gmail.com> (http://www.mikealrogers.com)",
@@ -32,7 +32,7 @@
     "fake-indexeddb": "^2.0.3",
     "husky": "^0.14.3",
     "lucass": "^4.1.0",
-    "semantic-release": "^8.0.3",
+    "semantic-release": "^15.0.0",
     "standard": "^10.0.3",
     "tap": "^10.7.2",
     "validate-commit-msg": "^2.14.0"
