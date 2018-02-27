@@ -23,6 +23,6 @@ jobs:
   include:
     - stage: test
       script: npm test
-      after_success: npm run coverage
+      after_success: npm run coverage:upload
     - stage: release
       script: semantic-release
