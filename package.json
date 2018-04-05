@@ -1,7 +1,7 @@
 {
   "name": "r2",
   "version": "0.0.0-development",
-  "description": "",
+  "description": "HTTP client. Spiritual successor to request.",
   "main": "index.js",
   "scripts": {
     "commit": "git-cz",
