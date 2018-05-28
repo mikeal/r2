@@ -1,11 +1,5 @@
 # r2
 
-<p>
-  <a href="https://www.patreon.com/bePatron?u=880479">
-    <img src="https://c5.patreon.com/external/logo/become_a_patron_button.png" height="40px" />
-  </a>
-</p>
-
 [![Build Status](https://travis-ci.org/mikeal/r2.svg?branch=master)](https://travis-ci.org/mikeal/r2) [![Coverage Status](https://coveralls.io/repos/github/mikeal/r2/badge.svg?branch=master)](https://coveralls.io/github/mikeal/r2?branch=master) [![Greenkeeper badge](https://badges.greenkeeper.io/mikeal/r2.svg)](https://greenkeeper.io/)
 
 Early in Node.js I wrote an HTTP client library called `request`. It evolved
