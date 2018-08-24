@@ -12,6 +12,8 @@ let createServer = handler => {
   return server
 }
 
+let bigResponse = Buffer.from('0123456789'.repeat(100000))
+
 let url = 'http://localhost:1123/test'
 
 test('arraybuffer', async t => {
@@ -22,6 +24,18 @@ test('arraybuffer', async t => {
   })
   await server.listen(1123)
   t.same(Buffer.from(await r2(url).arrayBuffer), Buffer.from('test'))
+  await server.close()
+})
+
+test('big arraybuffer', async t => {
+  // tests https://github.com/mikeal/r2/issues/49
+  t.plan(2)
+  let server = createServer(async (req, res) => {
+    t.same(req.url, '/test')
+    res.end(bigResponse)
+  })
+  await server.listen(1123)
+  t.same(Buffer.from(await r2(url).arrayBuffer), bigResponse)
   await server.close()
 })
 
