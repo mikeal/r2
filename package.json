@@ -26,7 +26,7 @@
     "blob-to-buffer": "^1.2.6",
     "body": "^5.1.0",
     "browserify": "^16.1.0",
-    "commitizen": "^2.9.6",
+    "commitizen": "^3.0.1",
     "coveralls": "^3.0.0",
     "cz-conventional-changelog": "^2.0.0",
     "fake-indexeddb": "^2.0.3",
