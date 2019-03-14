@@ -1,8 +1,9 @@
 /* globals fetch, Headers */
 /* istanbul ignore next */
 if (!process.browser) {
-  global.fetch = require('node-fetch')
-  global.Headers = global.fetch.Headers
+  const fetchModule = require('node-fetch')
+  global.fetch = fetchModule.default
+  global.Headers = fetchModule.Headers
 }
 
 const caseless = require('caseless')
