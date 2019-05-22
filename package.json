@@ -34,7 +34,7 @@
     "lucass": "^4.1.0",
     "semantic-release": "^15.0.0",
     "standard": "^11.0.0",
-    "tap": "^12.0.0",
+    "tap": "^14.1.5",
     "validate-commit-msg": "^2.14.0"
   },
   "browser": {
